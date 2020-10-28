@@ -1,6 +1,7 @@
 package br.com.jorgeacetozi.ebookChat.configuration;
 
 import java.util.Arrays;
+
 import org.springframework.cassandra.core.keyspace.CreateKeyspaceSpecification;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,7 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     @Override
     public CassandraClusterFactoryBean cluster() {
         CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
-        cluster.setContactPoints("localhost");
+        cluster.setContactPoints("cassandra");
         cluster.setPort(9042);
         cluster.setKeyspaceCreations(
         		Arrays.asList(

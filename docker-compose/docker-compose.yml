@@ -8,6 +8,12 @@ services:
     image: "cassandra:3.0"
     ports:
       - "9042:9042"
+  rabbitmq:
+    image: "jorgeacetozi/rabbitmq-stomp:3.6"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "61613:61613"
   mysql:
     image: "mysql:5.7"
     ports:
@@ -15,10 +21,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: ebook_chat
-  rabbitmq-stomp:
-    image: "jorgeacetozi/rabbitmq-stomp:3.6"
+  ebook-chat:
+    build: ../ebook-chat
     ports:
-      - "5672:5672"
-      - "15672:15672"
-      - "61613:61613"
-      
+      - "8080:8080"
+    links:
+      - redis
+      - cassandra
+      - rabbitmq
+      - mysql
